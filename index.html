@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="A romantic surprise gift for Rokia — a love story beautifully told.">
+  <meta name="theme-color" content="#fce4ec">
+  <title>💌 A Letter for Rokia</title>
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ═══════════════ FLOATING HEARTS CONTAINER ═══════════════ -->
+  <div id="hearts-container" aria-hidden="true"></div>
+
+
+  <!-- ═══════════════ SCREEN 1 — LANDING (ENVELOPE) ═══════════════ -->
+  <section id="landing-screen" class="screen active">
+    <div class="landing-content">
+      <p class="envelope-emoji">💌</p>
+      <h1 class="envelope-title">A letter for <span class="highlight-name">Rokia</span></h1>
+      <p class="envelope-subtitle">tap the envelope to open</p>
+
+      <!-- Interactive Envelope -->
+      <div class="envelope-wrapper" id="envelope-wrapper">
+        <div class="envelope" id="envelope">
+          <div class="envelope-flap"></div>
+          <div class="envelope-back"></div>
+          <div class="envelope-front"></div>
+          <div class="envelope-letter">
+            <p>With all my love… 💕</p>
+          </div>
+          <div class="envelope-heart">❤️</div>
+        </div>
+      </div>
+
+      <!-- Intro Poem (appears after envelope tap, before password) -->
+      <div class="intro-poem-container" id="intro-poem-container">
+        <audio id="intro-audio" src="sound_note.mp3" preload="auto"></audio>
+        <div class="parchment-scroll">
+          <div class="scroll-ornament-top">⚜️</div>
+          <div class="poem-text-intro" dir="rtl" lang="ar">
+            <p>وَلَو أَنَّني أَستَغفِرُ اللَهَ كُلَّما</p>
+            <p>ذَكَرتُكِ لَم تُكتَب عَلَيَّ ذُنوبُ</p>
+            <p>وَلَو أَنَّ رُقَيَّة في العِراقِ لَزُرتُها</p>
+            <p>وَلَو كانَ خَلفَ الشَمسِ حينَ تَغيبُ</p>
+            <p>أُحِبُّكِ يا رُقَيَّة غَراماً وَعَشقَةً</p>
+            <p>وَلَيسَ أَتاني في الوِصالِ نَصيبُ</p>
+            <p>أُحِبُّكِ حُبّاً قَد تَمَكَّنَ في الحَشا</p>
+            <p>لَهو بَينَ جِلدي وَالعِظامِ دَبيبُ</p>
+            <p>أُحِبُّكِ يا رُقَيَّة مَحَبَّةَ عاشِقٍ</p>
+            <p>أَهاجَ الهَوى في القَلبِ مِنهُ لَهيبُ</p>
+            <p>أُحِبُّكِ حَتّى يَبعَثَ اللَهُ خَلقَهُ</p>
+            <p>وَلي مِنكِ في يَومِ الحِسابِ حَسيبُ</p>
+            <p>سَقى اللَهُ أَرضاً أَهلُ رُقَيَّة تَحُلُّها</p>
+            <p>وَجادَ عَلَيها الغَيثُ وَهوَ سَكوبُ</p>
+            <p>لِيَخضَرَّ مَرعاها وَيُخصِبَ أَهلَها</p>
+            <p>وَيَنمي بِها ذاكَ المَحَلِّ خَصيبُ</p>
+          </div>
+          <div class="scroll-ornament-bottom">⚜️</div>
+          <button id="continue-to-secret-btn" class="continue-poem-btn">استمرار 💌</button>
+        </div>
+      </div>
+
+      <!-- Secret Word Input (appears on envelope tap) -->
+      <div class="secret-container" id="secret-container">
+        <p class="secret-label">Enter the secret word 🔐</p>
+        <div class="secret-input-group">
+          <input
+            type="text"
+            id="secret-input"
+            class="secret-input"
+            placeholder="Type here…"
+            autocomplete="off"
+            autocapitalize="off"
+          >
+          <button id="secret-btn" class="secret-btn">💝 Unlock</button>
+        </div>
+        <p class="secret-error" id="secret-error">That's not it… try again 💔</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════ SCREEN 2 — WELCOME TRANSITION ═══════════════ -->
+  <section id="welcome-screen" class="screen">
+    <div class="welcome-content">
+      <div class="welcome-hearts">💕</div>
+      <h1 class="welcome-title">Welcome, my love</h1>
+      <p class="welcome-text">Every moment with you is a gift I treasure forever…</p>
+      <div class="welcome-loading">
+        <div class="loading-heart">❤️</div>
+        <p>Preparing our special place…</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════ SCREEN 3 — MAIN DASHBOARD ═══════════════ -->
+  <section id="dashboard" class="screen">
+
+    <!-- ── Dashboard Header ── -->
+    <header class="dashboard-header" id="dashboard-header">
+      <div class="header-bg-pattern"></div>
+      <div class="header-content">
+        <h1 class="header-names">
+          <span class="name-rokia">Rokia</span>
+          <span class="heart-divider">❤️</span>
+          <span class="name-mohammed">Mohammed</span>
+        </h1>
+        <h2 class="header-subtitle">✨ Our Place ✨</h2>
+      </div>
+    </header>
+
+    <main class="dashboard-main">
+
+      <!-- ════ SECTION 1: Our Beginning — Counter ════ -->
+      <section class="card" id="counter-section">
+        <div class="card-header">
+          <span class="card-icon">💍</span>
+          <h2 class="card-title">Counting Down To Our Day</h2>
+          <p class="card-subtitle">September 24, 2026 💕</p>
+        </div>
+        <div class="counter-grid" id="counter-grid">
+          <div class="counter-item">
+            <div class="counter-value" id="counter-days">0</div>
+            <div class="counter-label">Days</div>
+          </div>
+          <div class="counter-item">
+            <div class="counter-value" id="counter-hours">0</div>
+            <div class="counter-label">Hours</div>
+          </div>
+          <div class="counter-item">
+            <div class="counter-value" id="counter-minutes">0</div>
+            <div class="counter-label">Minutes</div>
+          </div>
+          <div class="counter-item">
+            <div class="counter-value" id="counter-seconds">0</div>
+            <div class="counter-label">Seconds</div>
+          </div>
+        </div>
+        <p class="counter-message" id="counter-message">…until our special day 💕</p>
+      </section>
+
+      <!-- ════ SECTION 2: Our Story Milestones ════ -->
+      <section class="card" id="timeline-section">
+        <div class="card-header">
+          <span class="card-icon">📖</span>
+          <h2 class="card-title">Our Story</h2>
+          <p class="card-subtitle">Milestones of our love</p>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Dec 31, 2018</span>
+              <h3 class="timeline-title">The Day We First Talked 💬</h3>
+              <p class="timeline-desc">The first words, the first spark — a New Year's Eve that changed our lives forever.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Jul 21, 2024</span>
+              <h3 class="timeline-title">Fatiha Day — Our Blessing 🤲</h3>
+              <p class="timeline-desc">The day our families came together and blessed our love — the beginning of forever.</p>
+            </div>
+          </div>
+          <div class="timeline-item clickable-timeline" id="engagement-timeline" data-gallery="engagement">
+            <div class="timeline-dot engagement-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Oct 4, 2024</span>
+              <h3 class="timeline-title">Our Engagement Day 💍✨</h3>
+              <p class="timeline-desc">The most magical night — the ring, the joy, the tears of happiness. Tap to see our photos! 📸</p>
+              <span class="timeline-tap-hint">Tap to view photos →</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">Sep 24, 2026</span>
+              <h3 class="timeline-title">Forever Begins 🏡❤️</h3>
+              <p class="timeline-desc">The beginning of our forever — two souls becoming one, just as it was always meant to be.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ SECTION 3: Love Roulette ════ -->
+      <section class="card" id="wheel-section">
+        <div class="card-header">
+          <span class="card-icon">🎡</span>
+          <h2 class="card-title">Love Roulette</h2>
+          <p class="card-subtitle">Spin to pick our next date activity! 💕</p>
+        </div>
+        <div class="wheel-container">
+          <div class="wheel-wrapper">
+            <div class="wheel-pointer">▼</div>
+            <canvas id="wheel-canvas" width="300" height="300"></canvas>
+          </div>
+          <button class="spin-btn" id="spin-btn">
+            <span class="spin-emoji">💝</span>
+            <span>Spin the Wheel!</span>
+          </button>
+          <div class="wheel-result" id="wheel-result">
+            <div class="result-emoji" id="result-emoji"></div>
+            <p class="result-text" id="result-text"></p>
+          </div>
+        </div>
+      </section>
+      <!-- ════ SECTION 3b: Love Letter + Video ════ -->
+      <section class="card love-letter-card" id="love-letter-section">
+        <div class="card-header">
+          <span class="card-icon">💌</span>
+          <h2 class="card-title">A Letter From My Heart</h2>
+          <p class="card-subtitle">Tap to listen &amp; read 💕</p>
+        </div>
+
+        <!-- Video (muted, background) -->
+        <div class="letter-video-wrapper">
+          <video
+            id="hand-kiss-video"
+            src="memo/hand_kiss.mp4"
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          ></video>
+        </div>
+
+        <!-- Tap to reveal button -->
+        <div class="letter-reveal-btn-wrapper" id="letter-reveal-wrapper">
+          <button class="letter-reveal-btn" id="letter-reveal-btn">
+            <span class="letter-reveal-icon">📜</span>
+            <span>Tap to read my letter</span>
+          </button>
+        </div>
+
+        <!-- Hidden audio -->
+        <audio id="love-audio" src="sound.mp3" preload="auto"></audio>
+
+        <!-- The letter (revealed on tap) -->
+        <div class="love-letter-content" id="love-letter-content">
+          <div class="letter-parchment">
+            <div class="letter-ornament">✨ 💕 ✨</div>
+            <div class="letter-poem" dir="rtl" lang="ar">
+              <p>لَمْ أَكُنْ أَنْوِيكَ حُبًّا..</p>
+              <p>فَقَدْ وَقَعْتُ فِيكَ سَهْوًا،</p>
+              <p>فَكَيْفَ أُعَدِّلُ الْمِيزَانَ؟</p>
+              <p>وَأَنْتَ مَلَأْتَ الْكَفَّتَيْنِ عِشْقًا.</p>
+              <br>
+              <p>لَسْتَ بِقُرْبِي..</p>
+              <p>لَكِنَّكَ فِي أَعْمَاقِ قَلْبِي،</p>
+              <p>فَإِنْ لَمْ يَكُنْ لِي فِيكَ حَظٌّ؛</p>
+              <p>فَقَدْ كَانَ لِي فِيكَ حُبًّا.</p>
+              <br>
+              <p>وَإِنْ لَمْ تَكُنْ لِي فِي الْحُبِّ قَدَرًا؛</p>
+              <p>فَيَكْفِينِي أَنَّكَ كُنْتَ فِي حَيَاتِي،</p>
+              <p>فَقَدْ كُنْتَ عِنْدِي أَحْلَى عُمُر..</p>
+              <br>
+              <p>فَأَنْتَ نِصْفِي الَّذِي..</p>
+              <p class="letter-last-line">لَمْ يُنْصِفْنِي بِهِ الْقَدَرُ</p>
+            </div>
+            <div class="letter-signature">— Mohammed 💌</div>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="card" id="gift-section">
+        <div class="card-header">
+          <span class="card-icon">🎁</span>
+          <h2 class="card-title">Hidden Gift</h2>
+          <p class="card-subtitle">Tap to reveal your surprise</p>
+        </div>
+        <div class="gift-scene" id="gift-scene">
+          <div class="gift-box" id="gift-box">
+            <!-- Lid -->
+            <div class="gift-lid">
+              <div class="gift-lid-top"></div>
+              <div class="gift-lid-front"></div>
+              <div class="gift-ribbon-bow">
+                <div class="bow-left"></div>
+                <div class="bow-right"></div>
+                <div class="bow-center"></div>
+              </div>
+            </div>
+            <!-- Body -->
+            <div class="gift-body">
+              <div class="gift-body-front"></div>
+              <div class="gift-ribbon-vertical"></div>
+              <div class="gift-ribbon-horizontal"></div>
+            </div>
+            <div class="gift-tap-hint">Tap me! 💝</div>
+          </div>
+        </div>
+        <!-- The hidden note (revealed on tap) -->
+        <div class="gift-note" id="gift-note">
+          <div class="gift-note-inner">
+            <div class="gift-note-decoration">✨💕✨</div>
+            <p class="gift-note-text">
+              You are what my heart has always needed — you and me, together at home, two souls as one.
+            </p>
+            <div class="gift-note-signature">— With all my love, Mohammed 💌</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ SECTION 5: Engagement Photos ════ -->
+      <section class="card" id="memories-section">
+        <div class="card-header">
+          <span class="card-icon">📸</span>
+          <h2 class="card-title">Our Engagement</h2>
+          <p class="card-subtitle">The night we said yes 💍</p>
+        </div>
+        <div class="gallery" id="gallery">
+          <div class="polaroid" style="--rotation: -3deg;">
+            <div class="polaroid-img">
+              <img src="engaged/photo_1.jpeg" alt="Engagement photo" loading="lazy">
+            </div>
+            <p class="polaroid-caption">Our magical night ✨</p>
+          </div>
+          <div class="polaroid" style="--rotation: 2deg;">
+            <div class="polaroid-img">
+              <img src="engaged/photo_2.jpeg" alt="Engagement photo" loading="lazy">
+            </div>
+            <p class="polaroid-caption">Together forever 💕</p>
+          </div>
+          <div class="polaroid" style="--rotation: -2deg;">
+            <div class="polaroid-img">
+              <img src="engaged/photo_3.jpeg" alt="Engagement photo" loading="lazy">
+            </div>
+            <p class="polaroid-caption">Love in our eyes 💖</p>
+          </div>
+          <div class="polaroid" style="--rotation: 3deg;">
+            <div class="polaroid-img">
+              <img src="engaged/photo_4.jpeg" alt="Engagement photo" loading="lazy">
+            </div>
+            <p class="polaroid-caption">The happiest moment 🥰</p>
+          </div>
+          <div class="polaroid" style="--rotation: -1deg;">
+            <div class="polaroid-img">
+              <img src="engaged/photo_5.jpeg" alt="Engagement photo" loading="lazy">
+            </div>
+            <p class="polaroid-caption">Two hearts, one soul ❤️</p>
+          </div>
+          <div class="polaroid" style="--rotation: 2.5deg;">
+            <div class="polaroid-img">
+              <img src="engaged/photo_6.jpeg" alt="Engagement photo" loading="lazy">
+            </div>
+            <p class="polaroid-caption">You &amp; me, always 💍</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ SECTION 6: 10 Reasons I Love You ════ -->
+      <section class="card" id="reasons-section">
+        <div class="card-header">
+          <span class="card-icon">❤️</span>
+          <h2 class="card-title">10 Reasons I Love You</h2>
+          <p class="card-subtitle">Tap each card to reveal 💕</p>
+        </div>
+        <div class="reasons-grid">
+          <div class="reason-card" data-reason="1">
+            <div class="reason-inner">
+              <div class="reason-front">
+                <span class="reason-number">1</span>
+                <span class="reason-emoji">💖</span>
+              </div>
+              <div class="reason-back">
+                <p>Your smile lights up my entire world — every time I see it, I fall in love all over again.</p>
+              </div>
+            </div>
+          </div>
+          <div class="reason-card" data-reason="2">
+            <div class="reason-inner">
+              <div class="reason-front">
+                <span class="reason-number">2</span>
+                <span class="reason-emoji">🌹</span>
+              </div>
+              <div class="reason-back">
+                <p>You believe in me even when I don't believe in myself. You make me want to be better.</p>
+              </div>
+            </div>
+          </div>
+          <div class="reason-card" data-reason="3">
+            <div class="reason-inner">
+              <div class="reason-front">
+                <span class="reason-number">3</span>
+                <span class="reason-emoji">✨</span>
+              </div>
+              <div class="reason-back">
+                <p>The way you care about the little things — a message, a look, a touch — it melts my heart.</p>
+              </div>
+            </div>
+          </div>
+          <div class="reason-card" data-reason="4">
+            <div class="reason-inner">
+              <div class="reason-front">
+                <span class="reason-number">4</span>
+                <span class="reason-emoji">🦋</span>
+              </div>
+              <div class="reason-back">
+                <p>After all these years, you still give me butterflies like it's the very first day.</p>
+              </div>
+            </div>
+          </div>
+          <div class="reason-card" data-reason="5">
+            <div class="reason-inner">
+              <div class="reason-front">
+                <span class="reason-number">5</span>
+                <span class="reason-emoji">🏡</span>
+              </div>
+              <div class="reason-back">
+                <p>You're not just the love of my life — you're my home. Wherever you are, I belong.</p>
+              </div>
+            </div>
+          </div>
+          <div class="reason-card" data-reason="6">
+            <div class="reason-inner">
+              <div class="reason-front">
+                <span class="reason-number">6</span>
+                <span class="reason-emoji">💪</span>
+              </div>
+              <div class="reason-back">
+                <p>Your strength inspires me. The way you handle life with grace makes me so proud of you.</p>
+              </div>
+            </div>
+          </div>
+          <div class="reason-card" data-reason="7">
+            <div class="reason-inner">
+              <div class="reason-front">
+                <span class="reason-number">7</span>
+                <span class="reason-emoji">😂</span>
+              </div>
+              <div class="reason-back">
+                <p>Your laugh is my favorite sound in the world. I'd do anything just to hear it.</p>
+              </div>
+            </div>
+          </div>
+          <div class="reason-card" data-reason="8">
+            <div class="reason-inner">
+              <div class="reason-front">
+                <span class="reason-number">8</span>
+                <span class="reason-emoji">🤲</span>
+              </div>
+              <div class="reason-back">
+                <p>Your beautiful heart and your faith make you the most precious person I've ever known.</p>
+              </div>
+            </div>
+          </div>
+          <div class="reason-card" data-reason="9">
+            <div class="reason-inner">
+              <div class="reason-front">
+                <span class="reason-number">9</span>
+                <span class="reason-emoji">🌙</span>
+              </div>
+              <div class="reason-back">
+                <p>You're my last thought at night and my first thought every morning. You own my heart.</p>
+              </div>
+            </div>
+          </div>
+          <div class="reason-card" data-reason="10">
+            <div class="reason-inner">
+              <div class="reason-front">
+                <span class="reason-number">10</span>
+                <span class="reason-emoji">💍</span>
+              </div>
+              <div class="reason-back">
+                <p>Because choosing you was the best decision of my life — and I'd choose you again, a million times.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ SECTION 7: Our Special Memories ════ -->
+      <section class="card" id="special-memories-section">
+        <div class="card-header">
+          <span class="card-icon">💝</span>
+          <h2 class="card-title">Our Precious Memories</h2>
+          <p class="card-subtitle">Every moment with you is unforgettable</p>
+        </div>
+        <div class="memories-grid">
+          <!-- Named milestone memories -->
+          <div class="memory-card milestone">
+            <div class="memory-img">
+              <img src="memo/first_photo.jpeg" alt="Our first photo" loading="lazy">
+            </div>
+            <div class="memory-label">
+              <span class="memory-emoji">📸</span>
+              <span>Our First Photo Together</span>
+            </div>
+          </div>
+          <div class="memory-card milestone">
+            <div class="memory-img">
+              <img src="memo/first_hand_hold.jpeg" alt="First time holding hands" loading="lazy">
+            </div>
+            <div class="memory-label">
+              <span class="memory-emoji">🤝</span>
+              <span>The First Time I Held Your Hand</span>
+            </div>
+          </div>
+          <div class="memory-card milestone">
+            <div class="memory-img">
+              <img src="memo/birthday_2020.jpeg" alt="Birthday 2020" loading="lazy">
+            </div>
+            <div class="memory-label">
+              <span class="memory-emoji">🎂</span>
+              <span>Your Birthday 2020</span>
+            </div>
+          </div>
+          <div class="memory-card milestone">
+            <div class="memory-img">
+              <img src="memo/graduation_day.jpeg" alt="Graduation day" loading="lazy">
+            </div>
+            <div class="memory-label">
+              <span class="memory-emoji">🎓</span>
+              <span>The Day of Graduation</span>
+            </div>
+          </div>
+          <div class="memory-card milestone">
+            <div class="memory-img">
+              <img src="memo/our_blessing.jpeg" alt="Our blessing" loading="lazy">
+            </div>
+            <div class="memory-label">
+              <span class="memory-emoji">🤲</span>
+              <span>Our Blessing Day</span>
+            </div>
+          </div>
+          <div class="memory-card milestone">
+            <div class="memory-img">
+              <img src="memo/the_ring_day.jpeg" alt="The ring day" loading="lazy">
+            </div>
+            <div class="memory-label">
+              <span class="memory-emoji">💍</span>
+              <span>The Day of the Ring</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- More memories gallery -->
+        <div class="more-memories-toggle" id="more-memories-toggle">
+          <button class="show-more-btn" id="show-more-btn">
+            <span>View All Our Photos</span>
+            <span class="show-more-icon">📷 ↓</span>
+          </button>
+        </div>
+        <div class="more-memories-grid" id="more-memories-grid">
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_1.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_2.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_3.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_4.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_5.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_6.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_7.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_8.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_9.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_10.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_11.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_12.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_13.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_14.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_15.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_16.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_17.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_18.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_19.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_20.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_21.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_22.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_23.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_24.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_25.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_26.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_27.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_28.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_29.jpeg" alt="Memory" loading="lazy"></div></div>
+          <div class="memory-card"><div class="memory-img"><img src="memo/memory_30.jpeg" alt="Memory" loading="lazy"></div></div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ── Footer ── -->
+    <footer class="dashboard-footer">
+      <div class="footer-hearts">💕</div>
+      <p class="footer-text">Made with love for <strong>Rokia</strong></p>
+      <p class="footer-subtext">You are my forever ❤️</p>
+    </footer>
+
+  </section>
+
+  <!-- ═══════════════ ENGAGEMENT PHOTO MODAL ═══════════════ -->
+  <div class="photo-modal" id="photo-modal">
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close">✕</button>
+      <h2 class="modal-title">💍 Our Engagement Day</h2>
+      <p class="modal-subtitle">October 4, 2024</p>
+      <div class="modal-gallery" id="modal-gallery">
+        <div class="modal-photo"><img src="engaged/photo_1.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_2.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_3.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_4.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_5.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_6.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_7.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_8.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_9.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_10.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_11.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_12.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_13.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_14.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_15.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_16.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_17.jpeg" alt="Engagement" loading="lazy"></div>
+        <div class="modal-photo"><img src="engaged/photo_18.jpeg" alt="Engagement" loading="lazy"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
