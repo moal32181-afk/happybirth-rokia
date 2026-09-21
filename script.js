@@ -129,10 +129,16 @@
       secretError.classList.remove('visible');
       secretContainer.classList.remove('visible');
       envelope.style.animation = '';
+      
+      const bgMusic = $('#bg-music');
 
       // show welcome screen
       setTimeout(() => {
         switchScreen(landingScreen, welcomeScreen);
+        if (bgMusic) {
+          bgMusic.volume = 0.4; // Soft volume for background
+          bgMusic.play().catch(e => console.log('BG Music play prevented:', e));
+        }
       }, 1400);
 
       // After welcome → show dashboard
@@ -453,10 +459,18 @@
       // Show letter (triggers CSS animations)
       loveLetterContent.classList.add('visible');
 
+      const bgMusic = $('#bg-music');
+
       // Play audio
       if (loveAudio) {
+        if (bgMusic) bgMusic.pause(); // Pause bg music
         loveAudio.volume = 0.8;
         loveAudio.play().catch(e => console.log('Audio autoplay prevented:', e));
+        
+        // Resume bg music when letter audio ends
+        loveAudio.addEventListener('ended', () => {
+          if (bgMusic) bgMusic.play().catch(e => console.log('BG Music resume prevented:', e));
+        });
       }
       
       // Ensure video is playing (sometimes browsers pause if out of view)
